@@ -1,8 +1,2 @@
-
-X = -8 : 8;
-Y = -8 : 8;
-
-Y = Y';
-Z = (X-1).*(X-2)+(Y+3).*(Y+4);
-
-surf(X,Y,Z)
+close all;
+animationDescenteSurface([0 0]);
