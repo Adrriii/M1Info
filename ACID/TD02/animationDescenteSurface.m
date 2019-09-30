@@ -23,8 +23,9 @@ function [] = animationDescenteSurface(pdep)
 
   plot3(pdep(1), pdep(2), func(coeffsX,coeffsY,pdep(1), pdep(2)), 'ok');
   % axis([-8 8 -8 8]);
-      xd = valeurPolynome(derivPoly(coeffsX),pcurr(1)) * delta;
-      yd = valeurPolynome(derivPoly(coeffsY),pcurr(2)) * delta;
+  
+  xd = valeurPolynome(derivPoly(coeffsX),pcurr(1)) * delta;
+  yd = valeurPolynome(derivPoly(coeffsY),pcurr(2)) * delta;
 
 
   while(xd > epsilon && yd > epsilon)
