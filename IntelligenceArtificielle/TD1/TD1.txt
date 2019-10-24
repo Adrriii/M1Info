@@ -1,0 +1,83 @@
+1. Exploration d'arbres... sur feuilles
+
+1) Le facteur de branchement est de 3.
+
+2) Meilleur (Ami): 8, Meilleur (Ennemi): -4
+Un seul fils = Un seul coup possible (forcé)
+C'est une mauvaise chose d'avoir un coup forcé à son tour, mais dans le cas du tour adverse ça aide à avoir une meilleure prédiction.
+
+3) La valeur rapportée par l'exploration du noeud voisin est >= à 3, la valeur la plus haute pour élaguer la feuille 8 est donc 3.
+
+4) 
+
+a c = . : [a:(-),b(+)]
+v
+e c = l : [a:(-),b(+)]
+v
+a c = ll : [a:(-),b(+)]
+v
+e c = lll : [a:(-),b(3)] -> 3
+^
+a c = ll : [a:(3),b(+)]
+v
+e c = llr : [a:(3),b(3)] -> 3 // Coupe
+^
+a c = ll : [a:(3),b(+)] -> 3
+^
+e c = l : [a:(-),b(3)]
+v
+a c = lm : [a:(-),b(3)]
+v
+e c = lmm : [a:(-),b(1)] -> 1
+^
+a c = lm : [a:(1),b(3)]
+^
+e c = l : [a:(1),b(3)] -> 1
+v
+a c = lr : [a:(1),b(3)]
+v
+e c = lrl : [a:(1),b(4)] -> 4
+^
+a c = lr : [a:(1),b(3)]
+v
+e c = lrr : [a:(1),b(-2)] -> 1 // Coupe
+^
+a c = lr : [a:(1),b(3)]
+^
+e c = l : [a:(1),b(3)] -> 1
+^
+a c = . : [a:(1),b(+)]
+v
+e c = r : [a:(1),b(+)]
+v
+a c = rl : [a:(1),b(+)]
+v
+e c = rll : [a:(1),b(-4)] // Coupe
+^
+a c = rl : [a:(1):b(+)]
+v
+e c = rlr : [a:(1):b(0)] // Coupe
+^
+a c = rl : [a:(1):b(+)]
+^
+e c = r : [a:(1):b(+)]
+v
+a c = rr : [a:(1):b(+)]
+v
+e c = rrr : [a:(1):b(-4)] // Coupe
+^
+a c = rr : [a:(1),b(+)]
+^
+e c = r : [a:(1),b(+)]
+^
+a c = . : [a:(1),b(+)]
+
+5)
+
+2. Stratégies gagnantes au Morpion ?
+
+1. Nombre de parties possibles : 255168
+Nombre de noeuds de l'arbre de recherche : 549945
+Il faut très peu de temps même avec un algorithme basique en python (de l'ordre de quelque seconds)
+
+2.
