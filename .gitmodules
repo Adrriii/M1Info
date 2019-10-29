@@ -1,0 +1,6 @@
+[submodule "ApprocheObjetCoursMaster"]
+	url = https://github.com/Adrriii/ApprocheObjetCoursMaster
+[submodule "CoCa-DM1"]
+	url = https://github.com/Adrriii/CoCa-DM1
+[submodule "SE-nachos"]
+	url = https://github.com/chocorion/SE-nachos
