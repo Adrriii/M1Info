@@ -172,9 +172,22 @@ def nextMove_Human(b,h):
         move.append('X')
     else:
         move.append('O')
-    in_move = input("Next move: ").split(" ")
-    move.append(int(in_move[0]))
-    move.append(int(in_move[1]))
+    in_move = int(input("Next move: "))
+
+    if in_move <= 3:
+        move.append(2)
+    elif in_move <= 6:
+        move.append(1)
+    else:
+        move.append(0)
+
+    if in_move == 7 or in_move == 4 or in_move == 1:
+        move.append(0)
+    elif in_move == 8 or in_move == 5 or in_move == 2:
+        move.append(1)
+    else:
+        move.append(2)
+
     return move
 
 def genericGame(b,X_def,O_def, silent = False):
@@ -198,7 +211,7 @@ def play(b, X_def, O_def, number):
     p = 0
     for i in range(1, number + 1):
         p+=1
-        r = genericGame(Tictactoe.Board(), X_def, O_def, True)
+        r = genericGame(Tictactoe.Board(), X_def, O_def, False)
         victory += r
 
         if (p % 1 == 0 or i == number):
@@ -225,4 +238,4 @@ board = Tictactoe.Board()
 
 #playVsHuman(board,-1)
 
-play(board,nextMove_Robin,nextMove_AI, 1000)
+play(board,nextMove_Human,nextMove_AI, 1000)
