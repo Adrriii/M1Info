@@ -2,6 +2,7 @@ import time
 import chess
 import chess.svg
 import copy
+import random
 from time import sleep
 from random import randint, choice
 
@@ -55,44 +56,42 @@ def maxValue(b,alpha,beta, player,depth, max_depth):
     if depth>=max_depth or b.is_game_over():
         if b.is_game_over():
             if b.is_stalemate():
-                return 0,0
+                return 0
             if b.is_checkmate():
-                return 999,0
+                return 999
         else:
-            return getBoardScore(b,player),0
-    best = 0
+            return getBoardScore(b,player)
+            
     for m in b.generate_legal_moves():
         b.push(m)
-        val,move = minValue(b,alpha,beta,player,depth+1,max_depth)
+        val = minValue(b,alpha,beta,player,depth+1,max_depth)
         b.pop()
         if(alpha < val):
             alpha = val
-            best = m
         if(alpha >= beta):
-            return beta, m
-    return alpha,best
+            return beta
+    return alpha
             
 def minValue(b,alpha,beta, player, depth, max_depth):
     if depth>=max_depth:
         if b.is_game_over():
             if b.is_stalemate():
-                return 0,0
+                return 0
             if b.is_checkmate():
-                return -999,0
+                return -999
         else:
-            return getBoardScore(b,player),0
-    best = 0
+            return getBoardScore(b,player)
+            
     for m in b.generate_legal_moves():
         b.push(m)
-        val,move = maxValue(b,alpha,beta,player,depth+1,max_depth)
+        val = maxValue(b,alpha,beta,player,depth+1,max_depth)
 
         b.pop()
         if(beta > val):
             beta = val
-            best = m
         if(alpha >= beta):
-            return alpha,m
-    return beta,best
+            return alpha
+    return beta
 
 def getBoardScore(b,player):
     score = 0
@@ -100,15 +99,47 @@ def getBoardScore(b,player):
         score += piece_val[player][p.symbol()]
     return score
 
-def nextMove_AI_3(b,player):
-    depth = 5
+def nextMove_AI(b,player,depth):    
+    best = -999
+    scores = {}
+    for m in b.generate_legal_moves():
+        b.push(m)
+        score = minValue(b,-999,999,player,0,depth)
+        b.pop()
+
+        if(score > best):
+            best = score
+
+        if str(score) in scores:
+            scores[str(score)].append(m)
+        else:
+            scores[str(score)] = [m]
     
-    score,move = maxValue(b,-999,999,player,0,depth)
-    print(str(player)+": "+str(score))
-    return move
+    return random.choice(scores[str(best)])
+
+def nextMove_AI_3(b,player):  
+    return nextMove_AI(b,player,5)
+
+def nextMove_AI_2(b,player):  
+    return nextMove_AI(b,player,3)
+
+def nextMove_AI_1(b,player):  
+    return nextMove_AI(b,player,1)
 
 def nextMove_Random(b,c):    
     return randomMove(b)
+
+def nextMove_Human(b,c):
+    print("--------")
+    moves = []
+    for m in b.generate_legal_moves():
+        moves.append(m)
+
+    i = 0
+    for m in moves:
+        print(str(i)+": "+str(m))
+        i += 1
+    return moves[int(input("selection: "))]
 
 def parcoursProfondeur(b,depth, max_depth,nodes):
     if depth >= max_depth:
@@ -131,9 +162,9 @@ def genericGame(b,white_def,black_def, silent = False):
     c = 1
     while(not b.is_game_over()):
         if not silent: 
-            sleep(0.5)
+            sleep(0.2)
             f = open("current.svg","w")
-            f.write(chess.svg.board(board=b))
+            f.write(chess.svg.board(board=b,size=400))
             f.close()
         bs = copy.deepcopy(b)
         if(c == 1):
@@ -144,10 +175,14 @@ def genericGame(b,white_def,black_def, silent = False):
     
     if not silent: 
         print("Resultat : ", b.result())
+        sleep(0.2)
+        f = open("current.svg","w")
+        f.write(chess.svg.board(board=b,size=400))
+        f.close()
     return
 
 board = chess.Board()
 
 # parcoursAll(board,10)
 
-genericGame(board,nextMove_AI_3,nextMove_Random)
+genericGame(board,nextMove_AI_2,nextMove_AI_2)
