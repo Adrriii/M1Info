@@ -48,6 +48,7 @@ nodes = 0
 current_depth = 0
 white_h = 0
 black_h = 0
+current_depth_info = {}
 
 def randomMove(b):
     '''Renvoie un mouvement au hasard sur la liste des mouvements possibles. Pour avoir un choix au hasard, il faut
@@ -154,7 +155,7 @@ def NegAlphaBetaCredit(b, alpha, beta, the_player, player, credit, current_val, 
     current_depth = depth
     val = getBoardScorePreload(b,legal_moves,0 if player == -1 else 1)
     
-    if credit<=0 or game_over:
+    if credit<0 or game_over:
         if game_over:
             if b.is_checkmate():
                 return 999 * player
@@ -179,9 +180,15 @@ def NegAlphaBetaCredit(b, alpha, beta, the_player, player, credit, current_val, 
         # Bad move for the player
         credit -= 35
 
+
+    legal_moves = list(b.generate_legal_moves())
+
+    current_depth_info[depth+1] = [0,len(legal_moves)]
+
     refresh()
 
     for m in legal_moves:
+        current_depth_info[depth+1][0] += 1
         b.push(m)
         val = -NegAlphaBetaCredit(b, alpha, beta, not the_player, next_player, credit, val, depth+1)
         b.pop()
@@ -190,6 +197,8 @@ def NegAlphaBetaCredit(b, alpha, beta, the_player, player, credit, current_val, 
             alpha = val
             if alpha>beta:
                 return alpha
+
+    del(current_depth_info[depth+1])
     
     return alpha
 
@@ -202,12 +211,12 @@ def getBoardScorePreload(b,legal_moves,player):
     for k,p in b.piece_map().items():
         score += piece_val[player][p.symbol()]
 
-    for m in legal_moves:
+    #for m in legal_moves:
     #    moves_available += 1
 
-        p = b.piece_at(m.to_square)
-        if p:
-            score += - piece_val[player][p.symbol()] / 2
+    #    p = b.piece_at(m.to_square)
+    #    if p:
+    #        score += - piece_val[player][p.symbol()] / 2
 
     score += moves_available / 20
     return score
@@ -239,10 +248,16 @@ def nextMove_AI(b,player,depth):
     return random.choice(scores[str(best)])
 
 def nextMove_NegAlphaBeta(b,player,depth): 
-    global white_h, black_h
+    global white_h, black_h, current_depth_info
     best = -999
     scores = {}
-    for m in b.generate_legal_moves():
+
+    legal_moves = list(b.generate_legal_moves())
+
+    current_depth_info[depth] = [0,len(legal_moves)]
+
+    for m in legal_moves:
+        current_depth_info[depth][0] += 1
         b.push(m)
         score = NegAlphaBeta(b,-1000,1000,-1 if player == 0 else 1,0,depth)
         b.pop()
@@ -263,11 +278,18 @@ def nextMove_NegAlphaBeta(b,player,depth):
     return random.choice(scores[str(best)])
 
 def nextMove_NegAlphaBetaCredit(b,player,depth): 
-    global white_h, black_h
+    global white_h, black_h, current_depth_info
     best = -999
     credit = depth * 10
     scores = {}
-    for m in b.generate_legal_moves():
+    current_depth_info = {}
+
+    legal_moves = list(b.generate_legal_moves())
+
+    current_depth_info[0] = [0,len(legal_moves)]
+
+    for m in legal_moves:
+        current_depth_info[0][0] += 1
         b.push(m)
         score = NegAlphaBetaCredit(b,-1000,1000,False,-1 if player == 0 else 1,credit,0,0)
         b.pop()
@@ -315,16 +337,24 @@ def nextMove_Random(b,c):
     return randomMove(b)
 
 def nextMove_Human(b,c):
-    print("--------")
-    moves = []
+    print("-------- Legal Moves --------")
+    moves = {}
     for m in b.generate_legal_moves():
-        moves.append(m)
+        moves[str(m)] = m
 
     i = 0
     for m in moves:
         print(str(i)+": "+str(m))
         i += 1
-    return moves[int(input("selection: "))]
+
+    r = None
+    while(r == None):
+        try:
+            r = moves[input("selection: ")]
+        except:
+            print("Invalid move")
+
+    return r
 
 def parcoursProfondeur(b,depth, max_depth):
     global nodes, white_h, black_h, current_depth
@@ -348,7 +378,7 @@ def parcoursAll(b,k):
         parcoursProfondeur(b,0,n)
 
 def genericGame(b,white_def,black_def, silent = False):
-    movelimit = 0
+    movelimit = 5
     current_move = 0
     c = 1
     while((current_move <= movelimit or movelimit <= 0) and not b.is_game_over()):
@@ -374,7 +404,7 @@ def genericGame(b,white_def,black_def, silent = False):
     return
 
 def refresh():
-    global nodes, last_refresh, refresh_interval_ms, last_nps, last_refresh_nps, refresh_interval_nps_ms, current_depth, current_nps
+    global nodes, last_refresh, refresh_interval_ms, last_nps, last_refresh_nps, refresh_interval_nps_ms, current_depth, current_nps, current_depth_info
     millis = int(round(time.time() * 1000))
 
     if(millis - refresh_interval_nps_ms >= last_refresh_nps):
@@ -385,6 +415,9 @@ def refresh():
     if(millis - refresh_interval_ms >= last_refresh):
         os.system('clear')
         print("Nodes: "+str(nodes)+" ("+str(current_nps)+" /s)")
+
+        for d,v in current_depth_info.items():
+            print("D"+str(d)+": "+str(v[0])+"/"+str(v[1]))
 
         print("Depth: "+str(current_depth))
         print("White: "+str(white_h))
