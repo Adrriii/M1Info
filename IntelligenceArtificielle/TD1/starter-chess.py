@@ -164,21 +164,13 @@ def NegAlphaBetaCredit(b, alpha, beta, the_player, player, credit, current_val, 
             return val
 
     diff = current_val - val
-    if abs(diff) <1:
+    if diff <0.5:
         # Uninteresting move
-        credit -= 10
-    elif diff>=1 and the_player:
-        # Interesting move for the player
-        credit -= 3
-    elif diff>=1 and not the_player:
-        # Bad move for the ennemy
         credit -= 35
-    elif diff<=1 and not the_player:
-        # Interesting move for the ennemy
+    elif diff>=2:
         credit -= 3
     else:
-        # Bad move for the player
-        credit -= 35
+        credit -= 10
 
 
     legal_moves = list(b.generate_legal_moves())
@@ -211,12 +203,12 @@ def getBoardScorePreload(b,legal_moves,player):
     for k,p in b.piece_map().items():
         score += piece_val[player][p.symbol()]
 
-    #for m in legal_moves:
-    #    moves_available += 1
+    for m in legal_moves:
+        moves_available += 1
 
-    #    p = b.piece_at(m.to_square)
-    #    if p:
-    #        score += - piece_val[player][p.symbol()] / 2
+        p = b.piece_at(m.to_square)
+        if p:
+            score += - piece_val[player][p.symbol()] / 2
 
     score += moves_available / 20
     return score
@@ -259,7 +251,7 @@ def nextMove_NegAlphaBeta(b,player,depth):
     for m in legal_moves:
         current_depth_info[depth][0] += 1
         b.push(m)
-        score = NegAlphaBeta(b,-1000,1000,-1 if player == 0 else 1,0,depth)
+        score = -NegAlphaBeta(b,-1000,1000,-1 if player == 0 else 1,0,depth)
         b.pop()
 
         if(score > best):
@@ -291,7 +283,7 @@ def nextMove_NegAlphaBetaCredit(b,player,depth):
     for m in legal_moves:
         current_depth_info[0][0] += 1
         b.push(m)
-        score = NegAlphaBetaCredit(b,-1000,1000,False,-1 if player == 0 else 1,credit,0,0)
+        score = -NegAlphaBetaCredit(b,-1000,1000,False,-1 if player == 0 else 1,credit,0,0)
         b.pop()
 
         if(score > best):
@@ -328,10 +320,10 @@ def nextMove_NegAlphaBeta_1(b,player):
     return nextMove_NegAlphaBeta(b,player,1)
 
 def nextMove_NegAlphaBetaCredit_2(b,player):  
-    return nextMove_NegAlphaBetaCredit(b,player,2)
+    return nextMove_NegAlphaBetaCredit(b,player,5)
 
 def nextMove_NegAlphaBetaCredit_1(b,player):  
-    return nextMove_NegAlphaBetaCredit(b,player,1)
+    return nextMove_NegAlphaBetaCredit(b,player,3)
 
 def nextMove_Random(b,c):    
     return randomMove(b)
@@ -432,7 +424,7 @@ if PROFILER:
     profiler = Profiler()
     profiler.start()
 
-genericGame(board,nextMove_NegAlphaBetaCredit_2,nextMove_NegAlphaBetaCredit_2)
+genericGame(board,nextMove_Human,nextMove_NegAlphaBetaCredit_2)
 
 if PROFILER:
     profiler.stop()
