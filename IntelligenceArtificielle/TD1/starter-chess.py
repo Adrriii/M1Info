@@ -168,7 +168,7 @@ def NegAlphaBetaCredit(b, alpha, beta, the_player, player, credit, current_val, 
         # Uninteresting move
         credit -= 35
     elif diff>=2:
-        credit -= 3
+        credit -= 5
     else:
         credit -= 10
 
@@ -182,7 +182,7 @@ def NegAlphaBetaCredit(b, alpha, beta, the_player, player, credit, current_val, 
     for m in legal_moves:
         current_depth_info[depth+1][0] += 1
         b.push(m)
-        val = -NegAlphaBetaCredit(b, alpha, beta, not the_player, next_player, credit, val, depth+1)
+        val = -NegAlphaBetaCredit(b, -alpha, -beta, not the_player, next_player, credit, val, depth+1)
         b.pop()
 
         if val>alpha:
@@ -320,7 +320,7 @@ def nextMove_NegAlphaBeta_1(b,player):
     return nextMove_NegAlphaBeta(b,player,1)
 
 def nextMove_NegAlphaBetaCredit_2(b,player):  
-    return nextMove_NegAlphaBetaCredit(b,player,5)
+    return nextMove_NegAlphaBetaCredit(b,player,4)
 
 def nextMove_NegAlphaBetaCredit_1(b,player):  
     return nextMove_NegAlphaBetaCredit(b,player,3)
@@ -370,7 +370,7 @@ def parcoursAll(b,k):
         parcoursProfondeur(b,0,n)
 
 def genericGame(b,white_def,black_def, silent = False):
-    movelimit = 5
+    movelimit = 0
     current_move = 0
     c = 1
     while((current_move <= movelimit or movelimit <= 0) and not b.is_game_over()):
@@ -424,7 +424,7 @@ if PROFILER:
     profiler = Profiler()
     profiler.start()
 
-genericGame(board,nextMove_Human,nextMove_NegAlphaBetaCredit_2)
+genericGame(board,nextMove_NegAlphaBetaCredit_2,nextMove_NegAlphaBetaCredit_2)
 
 if PROFILER:
     profiler.stop()
