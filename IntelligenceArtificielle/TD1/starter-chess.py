@@ -8,7 +8,7 @@ from time import sleep
 from random import randint, choice
 from pyinstrument import Profiler
 
-PROFILER = True
+PROFILER = False
 
 piece_val = [{
     'p' : 1,
@@ -42,7 +42,7 @@ last_refresh = 0
 last_refresh_nps = 0
 last_nps = 0
 current_nps = 0
-refresh_interval_ms = 100
+refresh_interval_ms = 1000
 refresh_interval_nps_ms = 300
 nodes = 0
 current_depth = 0
@@ -376,7 +376,7 @@ def genericGame(b,white_def,black_def, silent = False):
     while((current_move <= movelimit or movelimit <= 0) and not b.is_game_over()):
         current_move += 1
         if not silent: 
-            sleep(0.2)
+            sleep(1)
             f = open("current.svg","w")
             f.write(chess.svg.board(board=b,size=400))
             f.close()
@@ -405,7 +405,7 @@ def refresh():
         last_refresh_nps = millis
 
     if(millis - refresh_interval_ms >= last_refresh):
-        os.system('clear')
+        os.system('cls')
         print("Nodes: "+str(nodes)+" ("+str(current_nps)+" /s)")
 
         for d,v in current_depth_info.items():

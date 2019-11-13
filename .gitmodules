@@ -4,3 +4,6 @@
 	url = https://github.com/Adrriii/CoCa-DM1
 [submodule "SE-nachos"]
 	url = https://github.com/chocorion/SE-nachos
+[submodule "IA-ConcoursM1"]
+	path = IA-ConcoursM1
+	url = https://github.com/Adrriii/IA-ConcoursM1
