@@ -53,7 +53,18 @@ model.compile(loss='categorical_crossentropy',
 y_train_categ = keras.utils.to_categorical(y_train)
 y_test_categ = keras.utils.to_categorical(y_test)
 
-history = model.fit(x_train, y_train_categ, epochs=10, batch_size=16)
+history = model.fit(x_train, y_train_categ, validation_split=0.2, epochs=100, batch_size=256)
 loss_and_metrics = model.evaluate(x_test, y_test_categ, batch_size=128, verbose=0)
 
 print(loss_and_metrics)
+
+import matplotlib.pyplot as plt
+
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+
+plt.title('AI')
+plt.xlabel('epoch')
+plt.ylabel('accuracy')
+plt.legend(['train','val'], loc='upper left')
+plt.show()
