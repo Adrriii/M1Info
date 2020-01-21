@@ -1,10 +1,12 @@
-package refactoring.application;
+package refactoring.test;
 
+import org.junit.Test;
 import refactoring.model.*;
 
-public class Main {
+public class CustomerTest {
 
-    public static void main(String args[]) {
+    @Test
+    public void StatementTest() {
         Movie rogueOne = new Movie("RogueOne",Movie.NEW_RELEASE);
         Movie rdn = new Movie("Reine des neiges",Movie.CHILDRENS);
         Movie sw3 = new Movie("Star Wars III", Movie.REGULAR);
@@ -22,7 +24,14 @@ public class Main {
         String output = customer.getName() + ":\n";
         output += customer.statement();
 
-        System.out.println(output);
-    }
+        String expected = "Jean:\n
+        Rental Record for Jean\n
+                RogueOne        15.0 \n
+                Reine des neiges        7.5 \n
+                Star Wars III   5.0 \n
+        Amount owned is 27.5\n
+        You earned 4 frequent renter points\n";
 
+        assert
+    }
 }
