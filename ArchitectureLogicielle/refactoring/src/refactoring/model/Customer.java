@@ -1,12 +1,12 @@
-package model;
+package refactoring.model;
 
 import java.util.*;
 
-public class Customers {
+public class Customer {
 	private String _name;
 	private Vector _rentals = new Vector();
 
-	public Customers(String name) {
+	public Customer(String name) {
 		_name = name;
 	}
 

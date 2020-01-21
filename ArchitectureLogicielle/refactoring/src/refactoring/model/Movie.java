@@ -1,4 +1,4 @@
-package model;
+package refactoring.model;
 
 public class Movie {
 	public static final int CHILDRENS = 2;

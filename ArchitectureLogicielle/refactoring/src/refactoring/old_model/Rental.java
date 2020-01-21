@@ -1,4 +1,4 @@
-package model;
+package refactoring.old_model;
 
 public class Rental {
 	private Movie _movie;
