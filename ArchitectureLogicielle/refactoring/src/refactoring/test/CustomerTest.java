@@ -13,7 +13,7 @@ public class CustomerTest {
         Movie rdn = new Movie("Reine des neiges",Movie.CHILDRENS);
         Movie sw3 = new Movie("Star Wars III", Movie.REGULAR);
 
-        Customer customer = new Customer("Jean");
+        Customers customer = new Customers("Jean");
 
         Rental rental = new Rental(rogueOne, 5);
         Rental rental2 = new Rental(rdn, 7);
@@ -25,7 +25,7 @@ public class CustomerTest {
 
         String output = customer.statement();
 
-        String expected = "Rental Record for Jean\n\tRogueOne\t15.0 \n\tReine des neiges\t7.5 \n\tStar Wars III\t5.0 \nAmount owned is 27.5\nYou earned 4 frequent renter points\n";
+        String expected = "Rental Record for Jean\n\tRogueOne\t15.0 \n\tReine des neiges\t7.5 \n\tStar Wars III\t5.0 \nAmount owned is 27.5\nYou earned 4 frequent renter points";
 
         System.out.println(output);
         System.out.println(expected);

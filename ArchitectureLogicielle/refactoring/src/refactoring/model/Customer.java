@@ -4,10 +4,11 @@ import java.util.*;
 
 public class Customer {
 	private String _name;
-	private Vector _rentals = new Vector();
+	private Vector<Rental> _rentals;
 
 	public Customer(String name) {
 		_name = name;
+		_rentals = new Vector<Rental>();
 	}
 
 	public void addRental(Rental rental) {
@@ -20,37 +21,44 @@ public class Customer {
 
 	public String statement() {
 		double totalAmount = 0;
-		int frequentRenterPoints = 0;
-		Enumeration rentals = _rentals.elements();
+		int frequentRenterPoints = getFrequentRenterPoints();
+		Enumeration<Rental> rentals = _rentals.elements();
 		String result = "Rental Record for " + getName() + "\n";
+
 		while (rentals.hasMoreElements()) {
-			double thisAmount = 0;
-			Rental each = (Rental) rentals.nextElement();
-			switch (each.getMovie().getPriceCode()) {
-			case Movie.REGULAR:
-				thisAmount += 2;
-				if (each.getDaysRented() > 2) {
-					thisAmount += (each.getDaysRented() - 2) * 1.5;
-				}
-				break;
-			case Movie.NEW_RELEASE:
-				thisAmount += each.getDaysRented() * 3;
-				break;
-			case Movie.CHILDRENS:
-				thisAmount += 1.5;
-				if (each.getDaysRented() > 3)
-					thisAmount += (each.getDaysRented() - 3) * 1.5;
-				break;
-			}
-			frequentRenterPoints++;
-			if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && (each.getDaysRented() > 1))
-				frequentRenterPoints++;
-			result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + " \n";
+			Rental currentRental = (Rental) rentals.nextElement();
+			
+			double thisAmount = currentRental.getAmount();
+
+			result += "\t" + currentRental.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + " \n";
 			totalAmount += thisAmount;
 		}
+
 		result += "Amount owned is " + String.valueOf(totalAmount) + "\n";
 		result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
-		return result;
 
+		return result;
+	}
+
+	public double getOwnedAmount() {
+		double totalAmount = 0;
+		Enumeration<Rental> rentals = _rentals.elements();
+
+		while (rentals.hasMoreElements()) {
+			totalAmount += ((Rental) rentals.nextElement()).getAmount();
+		}
+
+		return totalAmount;
+	}
+
+	public int getFrequentRenterPoints() {
+		int frequentRenterPoints = 0;
+		Enumeration<Rental> rentals = _rentals.elements();
+
+		while (rentals.hasMoreElements()) {
+			frequentRenterPoints += ((Rental) rentals.nextElement()).getFrequentRenterPoints();
+		}
+
+		return frequentRenterPoints;
 	}
 }
