@@ -1,6 +1,5 @@
-package decorator.model.equipment.sword;
+package decorator.model.equipment;
 
-import decorator.model.equipment.*;
 import decorator.model.*;
 
 public class Sword extends Item {
