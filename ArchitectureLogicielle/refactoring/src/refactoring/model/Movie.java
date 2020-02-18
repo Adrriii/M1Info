@@ -1,28 +1,33 @@
 package refactoring.model;
 
 public class Movie {
-	public static final int CHILDRENS = 2;
-	public static final int REGULAR = 0;
-	public static final int NEW_RELEASE = 1;
+	public static final PriceCode CHILDRENS   = new StandardPricing(1.5, 3, 1.5);
+	public static final PriceCode REGULAR     = new StandardPricing(2  , 2, 1.5);
+	public static final PriceCode NEW_RELEASE = new NewReleasePricing();
 
 	private String _title;
-	private int _priceCode;
+	private PriceCode _priceCode;
 
-	public Movie(String title, int priceCode) {
+	public Movie(String title, PriceCode priceCode)
+	{
 		_title = title;
 		_priceCode = priceCode;
 	}
-
-	public int getPriceCode() {
+	
+	public PriceCode getPriceCode()
+	{
 		return _priceCode;
 	}
-
-	public void setPriceCode(int priceCode) {
+	
+	public void setPriceCode(PriceCode priceCode)
+	{
 		_priceCode = priceCode;
 	}
-
-	public String getTitle() {
+	
+	public String getTitle()
+	{
 		return _title;
 	}
+	
 
 }

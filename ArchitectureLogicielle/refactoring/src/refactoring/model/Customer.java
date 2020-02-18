@@ -2,63 +2,94 @@ package refactoring.model;
 
 import java.util.*;
 
-public class Customer {
+
+public class Customer
+{
 	private String _name;
-	private Vector<Rental> _rentals;
+	private Set<Rental> _rentals = new TreeSet<Rental>();
 
-	public Customer(String name) {
-		_name = name;
-		_rentals = new Vector<Rental>();
+	public Customer(String name)
+	{
+		_name=name;
 	}
 
-	public void addRental(Rental rental) {
-		_rentals.addElement(rental);
+	public void addRental(Rental rental)
+	{
+		_rentals.add(rental);
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return _name;
 	}
 
-	public String statement() {
-		double totalAmount = 0;
-		int frequentRenterPoints = getFrequentRenterPoints();
-		Enumeration<Rental> rentals = _rentals.elements();
-		String result = "Rental Record for " + getName() + "\n";
-
-		while (rentals.hasMoreElements()) {
-			Rental currentRental = (Rental) rentals.nextElement();
-			
-			double thisAmount = currentRental.getAmount();
-
-			result += "\t" + currentRental.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + " \n";
-			totalAmount += thisAmount;
+	public String statement(String endl, String tab)
+	{
+		String result = "Rental Record for "+getName()+ endl;
+		for(Rental each : _rentals)
+		{
+			result += 
+					tab + each.getMovie().getTitle() 
+					+ tab + String.valueOf(each.getAmount()) 
+					+ " " + endl;
 		}
 
-		result += "Amount owned is " + String.valueOf(totalAmount) + "\n";
-		result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
-
+		result += "Amount owed is " + String.valueOf(getTotalAmount()) +
+				endl;
+		result += "You earned " + String.valueOf(getRenterPoints()) +
+				" frequent renter points";
 		return result;
 	}
 
-	public double getOwnedAmount() {
-		double totalAmount = 0;
-		Enumeration<Rental> rentals = _rentals.elements();
-
-		while (rentals.hasMoreElements()) {
-			totalAmount += ((Rental) rentals.nextElement()).getAmount();
-		}
-
-		return totalAmount;
+	public String statementHTML()
+	{
+		StringBuilder result = new StringBuilder();
+		result.append("<html><body>\n");
+		result.append(statement("<br>", "&nbsp;&nbsp;"));
+		result.append("</body></html>");
+		return result.toString();
 	}
 
-	public int getFrequentRenterPoints() {
-		int frequentRenterPoints = 0;
-		Enumeration<Rental> rentals = _rentals.elements();
+	public String statement()
+	{
+		return statement("\n","\t");
+	}
 
-		while (rentals.hasMoreElements()) {
-			frequentRenterPoints += ((Rental) rentals.nextElement()).getFrequentRenterPoints();
+/*
+	public void statement(StatementBuilder bld)
+	{
+		bld.createNewStatement();
+		bld.buildHeader(getName());
+
+		for(Rental each : getRentals())
+		{
+			bld.buildRental(each);
 		}
 
-		return frequentRenterPoints;
+		bld.buildAmount(getTotalAmount());
+		bld.buildRenterPoints(getRenterPoints());
+
+		return bld.getStatement();
+	}
+*/
+	
+	double getTotalAmount() 
+	{
+		double res = 0;
+		for(Rental each : _rentals)
+		{
+			res += each.getAmount();
+		}
+		return res;
+	}
+
+	int getRenterPoints()
+	{
+		int res = 0;
+		for(Rental each : _rentals)
+		{
+			res += each.getRenterPoints();
+		}
+		return res;
 	}
 }

@@ -3,6 +3,7 @@ package refactoring.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
 import refactoring.model.*;
 
 public class CustomerTest {
@@ -13,7 +14,7 @@ public class CustomerTest {
         Movie rdn = new Movie("Reine des neiges",Movie.CHILDRENS);
         Movie sw3 = new Movie("Star Wars III", Movie.REGULAR);
 
-        Customers customer = new Customers("Jean");
+        Customer customer = new Customer("Jean");
 
         Rental rental = new Rental(rogueOne, 5);
         Rental rental2 = new Rental(rdn, 7);
