@@ -1,7 +1,7 @@
 package decorator.model;
 
 public class Player extends PlayerInterface {
-    int HP;
+    protected int HP;
 
     public Player() {
         this.HP = 100;
