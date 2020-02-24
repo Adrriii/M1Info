@@ -7,3 +7,6 @@
 [submodule "IA-ConcoursM1"]
 	path = IA-ConcoursM1
 	url = https://github.com/Adrriii/IA-ConcoursM1
+[submodule "ConceptionFormelle"]
+	path = ConceptionFormelle
+	url = https://github.com/Adrriii/ConceptionFormelle
