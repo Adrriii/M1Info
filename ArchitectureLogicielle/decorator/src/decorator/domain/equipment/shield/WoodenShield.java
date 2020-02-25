@@ -1,9 +1,9 @@
-package decorator.model.equipment.shield;
+package decorator.domain.equipment.shield;
 
-import decorator.model.equipment.*;
-import decorator.model.*;
+import decorator.domain.equipment.*;
+import decorator.domain.*;
 
-public class WoodenShield extends Item {
+public class WoodenShield extends Shield {
     
     public WoodenShield(PlayerInterface player) {
         super(player);

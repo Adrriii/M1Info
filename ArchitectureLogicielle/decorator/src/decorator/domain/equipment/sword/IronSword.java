@@ -1,7 +1,7 @@
-package decorator.model.equipment.sword;
+package decorator.domain.equipment.sword;
 
-import decorator.model.*;
-import decorator.model.equipment.*;
+import decorator.domain.*;
+import decorator.domain.equipment.*;
 
 public class IronSword extends Sword {
 

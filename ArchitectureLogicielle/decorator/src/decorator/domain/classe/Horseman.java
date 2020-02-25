@@ -1,14 +1,15 @@
-package decorator.model.classe;
+package decorator.domain.classe;
 
-import decorator.model.*;
-import decorator.model.classe.mount.Horse;
+import decorator.domain.*;
+import decorator.domain.classe.mount.Horse;
 
 public class Horseman extends Player {
 
     protected Mount mount;
 
-    public Horseman() {
-        mount = new Horse();
+    public Horseman(String nickname) {
+        super(nickname);
+        mount = new Horse("Horse");
     }
 
     @Override

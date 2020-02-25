@@ -1,6 +1,6 @@
-package decorator.model.equipment;
+package decorator.domain.equipment;
 
-import decorator.model.*;
+import decorator.domain.*;
 
 public class Shield extends Item {
     

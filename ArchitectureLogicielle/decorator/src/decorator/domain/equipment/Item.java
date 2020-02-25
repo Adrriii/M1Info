@@ -1,6 +1,6 @@
-package decorator.model.equipment;
+package decorator.domain.equipment;
 
-import decorator.model.*;
+import decorator.domain.*;
 
 public class Item extends Decorator {
 
@@ -33,15 +33,15 @@ public class Item extends Decorator {
     public int strike() {
         if (!modifiesAttack) return super.strike();
 
-        return super.strike() + ForceModifier;
+        return player.strike() + ForceModifier;
     }
 
     @Override
     public void parry(int force) {
-        if (!modifiesParry) { super.parry(force); return; }
+        if (!modifiesParry) { player.parry(force); return; }
 
         Durability--;
-        super.parry(force - ArmorModifier);
+        player.parry(force - ArmorModifier);
     }
     
 }

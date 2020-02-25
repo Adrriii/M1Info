@@ -1,5 +1,7 @@
 package decorator.model;
 
+import decorator.domain.PlayerInterface;
+
 public class GameMaster {
 
     public void fight(PlayerInterface s1, PlayerInterface s2) {
@@ -14,10 +16,10 @@ public class GameMaster {
         }
         
         if (s1.isAlive())  {
-            System.out.println("Player 1  Won");
+            System.out.println(s1.getNickname() + "  Won");
         }
         else {
-            System.out.println("Player 2  Won");
+            System.out.println(s2.getNickname() + "  Won");
         }
     }
 }

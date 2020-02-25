@@ -1,12 +1,13 @@
-package decorator.model.classe;
+package decorator.domain.classe;
 
-import decorator.model.*;
+import decorator.domain.*;
 
 public class Mount extends Player {
 
     protected int Tanking;
 
-    public Mount() {
+    public Mount(String nickname) {
+        super(nickname);
 
         Tanking = 0;
     }
@@ -22,6 +23,10 @@ public class Mount extends Player {
 
         if(tanked > force) {
             tanked = force;
+        }
+
+        if(tanked > HP) {
+            tanked = HP;
         }
         
         HP -= tanked;

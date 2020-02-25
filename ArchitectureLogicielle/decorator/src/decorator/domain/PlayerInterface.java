@@ -1,6 +1,8 @@
-package decorator.model;
+package decorator.domain;
 
 public abstract class PlayerInterface {
+
+    abstract public String getNickname();
 
     abstract public boolean isAlive();
 
