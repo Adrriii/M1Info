@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JUnitCore<soldiers>",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "projectName": "soldiers"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<soldiers>",
+            "request": "launch",
+            "mainClass": "soldiers.application.Main",
+            "projectName": "soldiers"
+        },
+    ]
+}

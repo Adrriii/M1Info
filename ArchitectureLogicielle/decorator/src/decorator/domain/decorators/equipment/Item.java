@@ -4,6 +4,8 @@ import decorator.domain.decorators.*;
 
 public class Item extends Decorator {
 
+    public boolean equipped = false;
+
     protected int ForceModifier;
 
     protected int ArmorModifier;
