@@ -12,6 +12,6 @@ public class WoodenShield extends Shield {
 
     @Override
     public Entity createExtension(Entity s) {
-        return new ExtensionConst(this, s, 0, 1);
+        return new ExtensionDurability(this, s, new ExtensionConst(this, s, 0, 1), 10);
     }
 }

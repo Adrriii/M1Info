@@ -12,7 +12,7 @@ public class IronSword extends Sword {
 
     @Override
     public Entity createExtension(Entity s) {
-        return new ExtensionConst(this, s, 6, 0);
+        return new ExtensionConst(this, s, 3, 0);
     }
 
 }

@@ -7,7 +7,7 @@ public class Horse extends Mount {
     public Horse(String nickname) {
         super(nickname);
 
-        Tanking = 10;
+        Tanking = 3;
     }
     
 }
