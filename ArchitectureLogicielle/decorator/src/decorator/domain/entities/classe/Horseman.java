@@ -1,9 +1,9 @@
-package decorator.domain.classe;
+package decorator.domain.entities.classe;
 
-import decorator.domain.*;
-import decorator.domain.classe.mount.Horse;
+import decorator.domain.entities.*;
+import decorator.domain.entities.classe.mount.Horse;
 
-public class Horseman extends Player {
+public class Horseman extends UnitSimple {
 
     protected Mount mount;
 

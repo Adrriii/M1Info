@@ -1,31 +1,35 @@
 package decorator.application;
 
 import decorator.model.*;
-import decorator.domain.*;
-import decorator.domain.classe.Horseman;
-import decorator.domain.classe.Infantryman;
-import decorator.domain.equipment.sword.*;
-import decorator.domain.equipment.shield.*;
+import decorator.domain.entities.*;
+import decorator.domain.entities.classe.*;
+import decorator.domain.entities.equipment.*;
 
 public class Main {
     public static void main(String args[]) {
-        // UnitSimple hm = new Horseman("Seth");
-        // UnitSimple im = new Infantryman("Eirika");
-        // im.parry(hm.strike());
-        // try {
-        //     im.addSword();
-        //     hm.addShield();
-        //     hm.parry(im.strike());
-        //     im.addShield(); 
-        //     im.addSword(); // Lève une exception car deux armes maximum
-        // }catch(ImpossibleExtensionException e) {}
+        UnitSimple hm = new Horseman("Seth");
+        UnitSimple im = new Infantryman("Eirika");
+        Equipment sw = new Sword();
+        Equipment sh = new Shield();
+        Equipment sw2 = new Sword();
+        try { 
+          im.parry(hm.strike());
+          im.addEquipment(sw);
+          hm.addEquipment(sw); // Lève une exception car l'arme est déjà attachée
+        }catch(ImpossibleExtensionException e) {
+          System.out.println("exception 1");
+        }
+      
+        try {
+         im.removeEquipment(sw);
+         hm.addEquipment(sw);
+         hm.addEquipment(sh);    
+         hm.addEquipment(sw2); // Lève une exception car deux armes maximum
+        }catch(ImpossibleExtensionException e) {
+          System.out.println("exception 2");
+        }
           
-
         GameMaster gameMaster = new GameMaster();
-
-        PlayerInterface player1 = new IronShield(new IronSword( new Infantryman("Eirika")));
-        PlayerInterface player2 = new Horseman("Seth");
-
-        gameMaster.fight(player1,player2);
+        gameMaster.fight(hm, im);
     }
 }

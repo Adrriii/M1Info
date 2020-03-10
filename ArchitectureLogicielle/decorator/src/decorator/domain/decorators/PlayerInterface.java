@@ -1,6 +1,10 @@
-package decorator.domain;
+package decorator.domain.decorators;
 
-public abstract class PlayerInterface {
+public interface PlayerInterface {
+
+    abstract public void setHP(int hp);
+
+    abstract public int getHP();
 
     abstract public String getNickname();
 

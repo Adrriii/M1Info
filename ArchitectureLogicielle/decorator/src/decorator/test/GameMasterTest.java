@@ -3,7 +3,7 @@ package decorator.test;
 import org.junit.Test;
 
 import decorator.model.*;
-import decorator.domain.*;
+import decorator.domain.decorators.Player;
 
 public class GameMasterTest {
 

@@ -1,12 +1,22 @@
-package decorator.domain;
+package decorator.domain.decorators;
 
-public class Player extends PlayerInterface {
+public class Player implements PlayerInterface {
     protected int HP;
     protected String nickname;
 
     public Player(String nickname) {
         this.HP = 100;
         this.nickname = nickname;
+    }
+
+    @Override
+    public void setHP(int hp) {
+        HP = hp;
+    }
+
+    @Override
+    public int getHP() {
+        return HP;
     }
 
     @Override
@@ -28,6 +38,6 @@ public class Player extends PlayerInterface {
     public void parry(int force) {
         if(force <= 0) return;
         this.HP -= force;
-        System.out.printf("%s : %d (%d)\n",this.nickname, -force, HP);
+        System.out.printf("%s : %d (%d)\n",this.nickname, HP, -force);
     }
 }

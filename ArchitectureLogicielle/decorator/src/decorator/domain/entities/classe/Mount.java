@@ -1,8 +1,8 @@
-package decorator.domain.classe;
+package decorator.domain.entities.classe;
 
-import decorator.domain.*;
+import decorator.domain.entities.*;
 
-public class Mount extends Player {
+public class Mount extends UnitSimple {
 
     protected int Tanking;
 
@@ -24,12 +24,8 @@ public class Mount extends Player {
         if(tanked > force) {
             tanked = force;
         }
-
-        if(tanked > HP) {
-            tanked = HP;
-        }
         
-        HP -= tanked;
+        parry(tanked);
         force -= tanked;
 
         return force;

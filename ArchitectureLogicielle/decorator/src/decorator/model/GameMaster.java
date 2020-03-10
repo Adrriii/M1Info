@@ -1,6 +1,6 @@
 package decorator.model;
 
-import decorator.domain.PlayerInterface;
+import decorator.domain.decorators.PlayerInterface;
 
 public class GameMaster {
 

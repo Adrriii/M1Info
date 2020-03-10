@@ -1,6 +1,6 @@
-package decorator.domain.equipment;
+package decorator.domain.decorators.equipment;
 
-import decorator.domain.*;
+import decorator.domain.decorators.*;
 
 public class Sword extends Item {
     
