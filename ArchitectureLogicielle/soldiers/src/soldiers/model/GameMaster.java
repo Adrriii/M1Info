@@ -4,9 +4,9 @@ import soldiers.domain.unit.*;
 
 public class GameMaster {
 
-    public void fight(UnitSimple s1, UnitSimple s2) {
-        UnitSimple attack = s1;
-        UnitSimple defend = s2;
+    public void fight(Unit s1, Unit s2) {
+        Unit attack = s1;
+        Unit defend = s2;
 
         while(s1.alive() && s2.alive()) {
             int force = attack.strike();
@@ -16,7 +16,7 @@ public class GameMaster {
             System.out.println(defend.nickname() + " is dealt " + dealt + " damage !");
             
 
-            UnitSimple tmpSwap = attack;
+            Unit tmpSwap = attack;
             attack = defend;
             defend = tmpSwap;
         }

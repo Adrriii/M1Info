@@ -30,7 +30,6 @@ public class EntityUnit implements Entity {
 	public int parry(int force) {
 		int dealt = healthPoints - Math.max(0, healthPoints - Math.max(0,force - naturalArmor));
 		healthPoints -= dealt;
-		System.out.println("["+nickname()+"] "+healthPoints+" (- "+dealt+")");
 		return dealt;
 	}
 

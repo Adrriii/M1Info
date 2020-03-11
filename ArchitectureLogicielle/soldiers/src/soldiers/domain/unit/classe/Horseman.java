@@ -14,7 +14,7 @@ public class Horseman extends UnitSimple {
     }
 
     public Horseman(String nickname, String horseName) {
-        super(new EntityUnit(nickname, 100, 1));
+        super(new EntityUnit(nickname, 150, 1));
 
         mount = new Horse(horseName);
     }
@@ -30,6 +30,7 @@ public class Horseman extends UnitSimple {
     @Override
 	public void addEquipment(Equipment w) throws ImpossibleExtensionException {
         if(w.getType().equals("Wand")) throw new ImpossibleExtensionException();
+        if(w.getType().equals("Axe")) throw new ImpossibleExtensionException();
         if(nbEquipments() >= 2) throw new ImpossibleExtensionException();
         if(w.getType().equals("Sword") && nbType("Sword") >= 1) throw new ImpossibleExtensionException();
         if(w.getType().equals("Shield") && nbType("Shield") >= 1) throw new ImpossibleExtensionException();
