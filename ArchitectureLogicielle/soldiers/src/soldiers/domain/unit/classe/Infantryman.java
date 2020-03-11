@@ -13,6 +13,7 @@ public class Infantryman extends UnitSimple {
 
     @Override
 	public void addEquipment(Equipment w) throws ImpossibleExtensionException {
+        if(w.getType().equals("Wand")) throw new ImpossibleExtensionException();
         if(nbEquipments() >= 2) throw new ImpossibleExtensionException();
         if(nbType("Shield") >= 1) {
             if(w.getType().equals("Shield")) throw new ImpossibleExtensionException();

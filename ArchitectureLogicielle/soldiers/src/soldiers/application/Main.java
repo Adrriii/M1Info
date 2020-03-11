@@ -3,6 +3,7 @@ package soldiers.application;
 import soldiers.domain.ImpossibleExtensionException;
 import soldiers.domain.equipment.*;
 import soldiers.domain.equipment.sword.*;
+import soldiers.domain.equipment.wand.ApprenticeWand;
 import soldiers.domain.equipment.shield.*;
 import soldiers.domain.unit.*;
 import soldiers.domain.unit.classe.*;
@@ -37,7 +38,17 @@ public class Main {
         good.add(eirika);
 
         Army evil = new Army("Evil");
-          
+        evil.add(new Creature("Entombed"));
+        evil.add(new Creature("Entombed"));
+
+        Mage conjurer = new Mage("Conjurer");
+        try {
+          conjurer.addEquipment(new ApprenticeWand());
+        }catch(ImpossibleExtensionException e) {
+          System.out.println("exception 3 not ok : ");
+        }
+        evil.add(conjurer);
+        
         GameMaster gameMaster = new GameMaster();
         gameMaster.fight(good, evil);
     }

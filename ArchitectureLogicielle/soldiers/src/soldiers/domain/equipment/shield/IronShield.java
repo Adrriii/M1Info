@@ -12,6 +12,6 @@ public class IronShield extends Shield {
 
     @Override
     public Entity createExtension(Entity s) {
-        return new ExtensionDurability(this, s, new ExtensionConst(this, s, 0, 5), 15);
+        return new ExtensionDurability(this, s, new ExtensionConst(this, s, 0, 5), 150);
     }
 }

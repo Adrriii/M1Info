@@ -38,6 +38,7 @@ public class Mount extends UnitSimple {
 	public void addEquipment(Equipment w) throws ImpossibleExtensionException {
         if(w.getType().equals("Sword")) throw new ImpossibleExtensionException();
         if(w.getType().equals("Shield")) throw new ImpossibleExtensionException();
+        if(w.getType().equals("Wand")) throw new ImpossibleExtensionException();
         if(nbEquipments() >= 2) throw new ImpossibleExtensionException();
         super.addEquipment(w);
     }

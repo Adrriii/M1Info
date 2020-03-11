@@ -12,8 +12,11 @@ public class UnitSimple {
 
     protected Entity entity;
 
+	protected int stacked;
+
 	public UnitSimple(Entity entity) {
 		this.entity = entity;
+		stacked = 0;
 		units = new ArrayList<>();
 	}
 
@@ -59,14 +62,25 @@ public class UnitSimple {
 		}
 		
         return total;
-    }
+	}
+	
+    public void stack(int force) {
+		stacked += force;
+	}
+
+	public int pop() {
+		int dealt = parry(stacked);
+		stacked = 0;
+		return dealt;
+	}
 
     public int parry(int force) {
         int remaining = force;
-        int lastremaining = remaining;
+		int lastremaining = remaining;
+		int real = 0;
 
         while(units.size() > 0 && remaining > 0) {
-            int share = (int) Math.ceil(remaining / units.size());
+			int share = Math.max(1,(int) Math.ceil(remaining / units.size()));
 
             Iterator<UnitSimple> i = units.iterator();
 
@@ -75,16 +89,23 @@ public class UnitSimple {
 
                 UnitSimple defender = i.next();
 
-                if(defender.alive()) {
-                    defender.parry(share);
-                    remaining -= share;
-                }
+				if(defender.alive()) {
+					defender.stack(share);
+						
+					remaining -= share;
+				}
             }
 
             if(lastremaining == remaining) break; // Could not parry, everyone probably dead.
-        }
+		}
 		
-        return entity.parry(remaining);
+		Iterator<UnitSimple> i = units.iterator();
+
+		while(i.hasNext()) {
+			real += i.next().pop();
+		}
+		
+        return real + entity.parry(remaining);
     }
 
 	public void addEquipment(Equipment w) throws ImpossibleExtensionException {

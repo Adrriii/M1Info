@@ -1,18 +1,18 @@
-package soldiers.domain.equipment.sword;
+package soldiers.domain.equipment.wand;
 
 import soldiers.domain.Entity;
 import soldiers.domain.equipment.*;
 
-public class IronSword extends Sword {
+public class ApprenticeWand extends Wand {
 
     @Override
     public String getName() {
-        return "Iron Sword";
+        return "ApprenticeWand";
     }
 
     @Override
     public Entity createExtension(Entity s) {
-        return new ExtensionConst(this, s, 5, 0);
+        return new ExtensionConst(this, s, 2, 2);
     }
 
 }
