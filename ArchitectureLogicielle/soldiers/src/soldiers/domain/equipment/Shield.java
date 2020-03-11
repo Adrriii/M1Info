@@ -13,6 +13,11 @@ public abstract class Shield extends EquipmentAbstract {
 		return (Shield) super.clone();
 	}
 
+	@Override
+	public String getType() {
+		return "Shield";
+	}
+
 	abstract public String getName();
 
 	abstract public Entity createExtension(Entity s);

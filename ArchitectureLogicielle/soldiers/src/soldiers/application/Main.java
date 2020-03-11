@@ -10,29 +10,35 @@ import soldiers.model.GameMaster;
 
 public class Main {
     public static void main(String args[]) {
-        UnitSimple hm = new Horseman("Seth");
-        UnitSimple im = new Infantryman("Eirika");
+        UnitSimple seth = new Horseman("Seth");
+        UnitSimple eirika = new Infantryman("Eirika");
+        eirika.add(seth);
         Equipment sw = new IronSword();
         Equipment sh = new IronShield();
         Equipment sw2 = new IronSword();
         try { 
-          im.parry(hm.strike());
-          im.addEquipment(sw);
-          hm.addEquipment(sw); // Lève une exception car l'arme est déjà attachée
+          eirika.parry(seth.strike());
+          eirika.addEquipment(sw);
+          seth.addEquipment(sw); // Lève une exception car l'arme est déjà attachée
         }catch(ImpossibleExtensionException e) {
-          System.out.println("exception 1");
+          System.out.println("exception 1 ok");
         }
       
         try {
-         im.removeEquipment(sw);
-         hm.addEquipment(sw);
-         hm.addEquipment(sh);    
-         hm.addEquipment(sw2); // Lève une exception car deux armes maximum
+          eirika.removeEquipment(sw);
+         seth.addEquipment(sw);
+         seth.addEquipment(sh);    
+         seth.addEquipment(sw2); // Lève une exception car deux armes maximum
         }catch(ImpossibleExtensionException e) {
-          System.out.println("exception 2");
+          System.out.println("exception 2 ok");
         }
+
+        Army good = new Army("Good");
+        good.add(eirika);
+
+        Army evil = new Army("Evil");
           
         GameMaster gameMaster = new GameMaster();
-        gameMaster.fight(hm, im);
+        gameMaster.fight(good, evil);
     }
 }

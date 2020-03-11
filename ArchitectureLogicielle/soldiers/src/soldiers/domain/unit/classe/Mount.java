@@ -1,5 +1,7 @@
 package soldiers.domain.unit.classe;
 
+import soldiers.domain.ImpossibleExtensionException;
+import soldiers.domain.equipment.Equipment;
 import soldiers.domain.unit.EntityUnit;
 import soldiers.domain.unit.UnitSimple;
 
@@ -30,6 +32,14 @@ public class Mount extends UnitSimple {
         force -= tanked;
 
         return force;
+    }
+
+    @Override
+	public void addEquipment(Equipment w) throws ImpossibleExtensionException {
+        if(w.getType().equals("Sword")) throw new ImpossibleExtensionException();
+        if(w.getType().equals("Shield")) throw new ImpossibleExtensionException();
+        if(nbEquipments() >= 2) throw new ImpossibleExtensionException();
+        super.addEquipment(w);
     }
     
 }

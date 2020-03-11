@@ -1,7 +1,8 @@
 package soldiers.domain.unit.classe;
 
-import soldiers.domain.unit.EntityUnit;
-import soldiers.domain.unit.UnitSimple;
+import soldiers.domain.ImpossibleExtensionException;
+import soldiers.domain.equipment.Equipment;
+import soldiers.domain.unit.*;
 import soldiers.domain.unit.classe.mount.Horse;
 
 public class Horseman extends UnitSimple {
@@ -24,5 +25,13 @@ public class Horseman extends UnitSimple {
             return super.parry(mount.parryMounted(force));
         else 
         return super.parry(force);
+    }
+
+    @Override
+	public void addEquipment(Equipment w) throws ImpossibleExtensionException {
+        if(nbEquipments() >= 2) throw new ImpossibleExtensionException();
+        if(w.getType().equals("Sword") && nbType("Sword") >= 1) throw new ImpossibleExtensionException();
+        if(w.getType().equals("Shield") && nbType("Shield") >= 1) throw new ImpossibleExtensionException();
+        super.addEquipment(w);
     }
 }

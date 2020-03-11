@@ -1,7 +1,3 @@
-/**
- * D. Auber & P. Narbel
- * Solution TD Architecture Logicielle 2016 Universit� Bordeaux.
- */
 package soldiers.domain.unit;
 
 import soldiers.domain.*;
@@ -26,8 +22,9 @@ public class EntityUnit implements Entity {
 
 	@Override
 	public int parry(int force) {
-		healthPoints = Math.max(0, healthPoints - force);
-		return force;
+		int dealt = healthPoints - Math.max(0, healthPoints - force);
+		healthPoints -= dealt;
+		return dealt;
 	}
 
 	@Override
