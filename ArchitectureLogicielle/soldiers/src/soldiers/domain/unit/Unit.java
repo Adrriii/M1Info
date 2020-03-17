@@ -110,7 +110,7 @@ public abstract class Unit {
 		w.setEquipped(true);
 	}
 
-	public void removeEquipment(Equipment w) {
+	public boolean removeEquipment(Equipment w) {
 		Entity current = entity;
 		Entity previous = entity;
 		while (current instanceof EntityExtension
@@ -122,10 +122,12 @@ public abstract class Unit {
 			((EntityExtension) previous)
 					.reparent(((EntityExtension) current).parent());
 					((EntityExtension) current).getOwner().setEquipped(false);
+			return true;
 		}
+		return false;
 	}
 
-	public Iterator<Equipment> getWeapons() {
+	public Iterator<Equipment> getEquipments() {
 		return new Iterator<Equipment>() {
 			Entity current = entity;
 
@@ -145,14 +147,14 @@ public abstract class Unit {
 
 	public int nbEquipments() {
 		int result = 0;
-		for (Iterator<Equipment> it = getWeapons(); it.hasNext(); it.next())
+		for (Iterator<Equipment> it = getEquipments(); it.hasNext(); it.next())
 			++result;
 		return result;
 	}
 
 	public int nbType(String type) {
 		int result = 0;
-		for (Iterator<Equipment> it = getWeapons(); it.hasNext(); )
+		for (Iterator<Equipment> it = getEquipments(); it.hasNext(); )
 			if(it.next().getType().equals(type)) ++result;
 		return result;
 	}

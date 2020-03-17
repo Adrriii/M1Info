@@ -1,7 +1,3 @@
-/**
- * D. Auber & P. Narbel
- * Solution TD Architecture Logicielle 2016 Universit� Bordeaux.
- */
 package soldiers.domain.equipment;
 
 import soldiers.domain.*;
